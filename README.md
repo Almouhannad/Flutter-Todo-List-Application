@@ -44,7 +44,7 @@ git clone https://github.com/Almouhannad/Flutter-Todo-List-Application.git
 
 2. Navigate to the project directory:
 ```bash
-cd Flutter_Todo_List_Application
+cd Flutter-Todo-List-Application
 ```
 
 3. Install dependencies:
