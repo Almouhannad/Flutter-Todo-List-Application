@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list_app/injection.dart';
 
-void main() {
-  runApp(const ToDoApp());
+void main() async {
+  //DI
+  WidgetsFlutterBinding.ensureInitialized();
+  await initInjection();
+
+  runApp(const TodoApp());
 }
 
-class ToDoApp extends StatelessWidget {
-  const ToDoApp({super.key});
+class TodoApp extends StatelessWidget {
+  const TodoApp({super.key});
 
   // This widget is the root of your application.
   @override
