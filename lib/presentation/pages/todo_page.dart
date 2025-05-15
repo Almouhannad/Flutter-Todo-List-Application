@@ -5,6 +5,7 @@ import 'package:todo_list_app/injection.dart';
 import 'package:todo_list_app/presentation/bloc/todo_bloc.dart';
 import 'package:todo_list_app/presentation/bloc/todo_event.dart';
 import 'package:todo_list_app/presentation/bloc/todo_state.dart';
+import 'package:todo_list_app/presentation/widgets/todo_item.dart';
 
 class TodoPage extends StatelessWidget {
   const TodoPage({super.key});
@@ -28,26 +29,7 @@ class TodoPage extends StatelessWidget {
                 itemCount: todos.length,
                 itemBuilder: (_, index) {
                   final todo = todos[index];
-                  return ListTile(
-                    title: Text(todo.title),
-                    leading: Checkbox(
-                      value: todo.isCompleted,
-                      onChanged: (_) {
-                        final updated = Todo(
-                          id: todo.id,
-                          title: todo.title,
-                          isCompleted: !todo.isCompleted,
-                        );
-                        context.read<TodoBloc>().add(UpdateTodoEvent(updated));
-                      },
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        context.read<TodoBloc>().add(DeleteTodoEvent(todo.id));
-                      },
-                    ),
-                  );
+                  return TodoItem(todo: todo);
                 },
               );
             } else if (state is TodosError) {
