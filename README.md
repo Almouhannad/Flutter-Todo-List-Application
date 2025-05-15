@@ -1,16 +1,72 @@
-# todo_list_app
+# 📱 Flutter Todo List Application
 
-A new Flutter project.
+A clean architecture-based Todo List application built with Flutter, implementing BLoC pattern for state management.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+- ✅ Create, read, update, and delete (CRUD) todo items
+- 🏗️ Clean Architecture implementation
+- 🔄 BLoC pattern for state management
+- 🎯 Dependency Injection
 
-A few resources to get you started if this is your first Flutter project:
+## 🏛️ Architecture
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The project follows Clean Architecture principles with the following structure:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+lib/
+├── data/           # Data layer (repositories implementation, data sources)
+├── domain/         # Business logic layer
+│   ├── entities/   # Business objects
+│   ├── repositories/ # Repository interfaces
+│   └── usecases/   # Use cases
+├── presentation/   # UI layer
+│   ├── bloc/       # BLoC components
+│   ├── pages/      # Screen implementations
+│   └── widgets/    # Reusable widgets
+└── injection.dart  # Dependency injection setup
+```
+
+## 🚀 Getting Started
+
+### 📋 Prerequisites
+
+- Flutter SDK (latest stable version)
+- Dart SDK (latest stable version)
+- Android Studio / VS Code with Flutter extensions
+
+### 💻 Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Almouhannad/Flutter-Todo-List-Application.git
+```
+
+2. Navigate to the project directory:
+```bash
+cd Flutter_Todo_List_Application
+```
+
+3. Install dependencies:
+```bash
+flutter pub get
+```
+
+4. Run the app:
+```bash
+flutter run
+```
+
+## 📦 Dependencies
+
+- flutter_bloc: For state management
+- get_it: For dependency injection
+- equatable: For value equality (Applying DDD entity principles)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
