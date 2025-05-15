@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/injection.dart';
+import 'package:todo_list_app/presentation/pages/todo_page.dart';
 
 void main() async {
   //DI
@@ -21,7 +22,7 @@ class TodoApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Placeholder(),
+      home: TodoPage(),
     );
   }
 }
