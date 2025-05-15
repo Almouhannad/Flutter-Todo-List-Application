@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/domain/entities/todo.dart';
-import 'package:todo_list_app/injection.dart';
 import 'package:todo_list_app/presentation/bloc/todo_bloc.dart';
 import 'package:todo_list_app/presentation/bloc/todo_event.dart';
 import 'package:todo_list_app/presentation/bloc/todo_state.dart';
@@ -12,37 +11,33 @@ class TodoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<TodoBloc>()..add(LoadTodos()),
-      child: Scaffold(
-        appBar: AppBar(title: const Text('My To-Do List')),
-        body: BlocBuilder<TodoBloc, TodoState>(
-          builder: (context, state) {
-            if (state is TodosLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is TodosLoaded) {
-              final todos = state.todos;
-              if (todos.isEmpty) {
-                return const Center(child: Text('No to-dos yet!'));
-              }
-              return ListView.builder(
-                itemCount: todos.length,
-                itemBuilder: (_, index) {
-                  final todo = todos[index];
-                  return TodoItem(todo: todo);
-                },
-              );
-            } else if (state is TodosError) {
-              return Center(child: Text('Error: ${state.message}'));
+    return Scaffold(
+      appBar: AppBar(title: const Text('My To-Do List')),
+      body: BlocBuilder<TodoBloc, TodoState>(
+        builder: (context, state) {
+          if (state is TodosLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is TodosLoaded) {
+            final todos = state.todos;
+            if (todos.isEmpty) {
+              return const Center(child: Text('No to-dos yet!'));
             }
-            return const SizedBox.shrink();
-          },
-        ),
-        floatingActionButton: Builder(
-          builder: (context) {
-            return FloatingActionButton(
+            return ListView.builder(
+              itemCount: todos.length,
+              itemBuilder: (_, index) {
+                return TodoItem(todo: todos[index]);
+              },
+            );
+          } else if (state is TodosError) {
+            return Center(child: Text('Error: ${state.message}'));
+          }
+          return const SizedBox.shrink();
+        },
+      ),
+      floatingActionButton: Builder(
+        builder:
+            (innerCtx) => FloatingActionButton(
               onPressed: () async {
-                // Simple dialog to add a new todo
                 final title = await showDialog<String>(
                   context: context,
                   builder: (_) {
@@ -50,7 +45,7 @@ class TodoPage extends StatelessWidget {
                     return AlertDialog(
                       title: const Text('New To-Do'),
                       content: TextField(
-                        onChanged: (value) => input = value,
+                        onChanged: (v) => input = v,
                         decoration: const InputDecoration(
                           hintText: 'Enter title',
                         ),
@@ -73,13 +68,11 @@ class TodoPage extends StatelessWidget {
                     id: DateTime.now().millisecondsSinceEpoch.toString(),
                     title: title.trim(),
                   );
-                  context.read<TodoBloc>().add(AddTodoEvent(newTodo));
+                  innerCtx.read<TodoBloc>().add(AddTodoEvent(newTodo));
                 }
               },
               child: const Icon(Icons.add),
-            );
-          },
-        ),
+            ),
       ),
     );
   }
